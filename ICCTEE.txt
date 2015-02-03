@@ -1,0 +1,53 @@
+======
+ICCTEE 
+======
+
+KEYWORDS: OS2,CSET2,TEE,SOM,WPS,IAN,IBM,....
+
+
+ICCTEE performs 3 functions
+
+1) filter unwanted warning messages from the ICC compiler
+
+2) copy stdin to stdout
+
+3) if the 1st argument is different from - the filtered input is also
+   copied to the file
+
+returns:
+    0: ok no error
+   -1: ok string "error EDC" detected in the input flow
+   -2: bad arguments
+   -3: can't open output file
+
+Usage
+-----
+
+  ICCTEE <FileName> <string 1> <string 2> .... <string n>
+
+  the lines containing <string1> ... <stringn> will be suppressed from
+  the output
+
+  if one of the string is "SOM" the messages EDC0811, EDC0805, and 
+  somInitializeClass will be suppressed.
+
+Note:
+-----
+
+  ONLY the messages containing "warning" are filtered.
+
+
+  In one of my typical makefile the dependance looks like:
+
+  {.}.c.obj:
+     ICC.EXE /Ss /Kb+ /Kp- /W2 /Ti /Gm /Ge- /G4 /C .\$*.c | icctee .\$*.err SOM
+
+NOTE2:
+------
+
+  I hope this program will be useless in the next release of ICC, when
+  Ian Ameline will add the funct. of this program to the C/Set 2 2.0
+
+
+Jacques LEISY - Computer Associates International - Sept 1992
+
